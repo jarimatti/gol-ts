@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "ES2015",
+        "module": "ES2015",
+        "outDir": "build",
+        "removeComments": true,
+        "sourceMap": true,
+        "moduleResolution": "node",
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts",
+        "**/*.test.ts",
+    ]
+}
