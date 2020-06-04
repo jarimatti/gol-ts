@@ -7,8 +7,13 @@
         <h1>Hello, World!</h1>
 
         <div class="controls">
-            <input id="probability" type="range" min="0" max="100"></input>
-            <button id="reset">Reset</button>
+            <label for="probability">Probability of live cells:</label>
+            <input id="probability" type="range" min="0" max="100" />
+            <label for="width">World width:</label>
+            <input id="width" type="number" min="100" max="500" value="200" />
+            <label for="height">World height:</label>
+            <input id="height" type="number" min="100" max="500" value="200" />
+            <button id="new">New</button>
             <button id="pause">Pause</button>
         </div>
         <div class="display">
