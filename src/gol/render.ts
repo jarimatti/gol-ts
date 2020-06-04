@@ -10,8 +10,7 @@ function render(canvas: HTMLCanvasElement, board: Board): void {
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
             const cell = cells[row][col]
-            const indices = colorIndicesForCoord(col, row, width)
-            const [red, green, blue, alpha] = indices
+            const [red, green, blue, alpha] = colorIndicesForCoord(col, row, width)
             if (cell) {
                 image.data[red] = 255
                 image.data[green] = 255
