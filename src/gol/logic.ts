@@ -53,6 +53,68 @@ function step(board: Board): Board {
     }
 }
 
+class Position {
+    constructor(readonly row: number, readonly col: number) {}
+
+    key() {
+        return `${this.row}@${this.col}`
+    }
+}
+
+interface Delta {
+    board: Board,
+    nextChanges: Map<string, Position>
+}
+
+function neighbouringPositions(pos: Position, board: Board): Position[] {
+    const cols = board.cols
+    const rows = board.rows
+    const {row, col} = pos
+
+    return [
+        new Position(row - 1, col - 1),
+        new Position(row - 1, col),
+        new Position(row - 1, col + 1),
+
+        new Position(row, col - 1),
+        new Position(row, col + 1),
+
+        new Position(row + 1, col - 1),
+        new Position(row + 1, col),
+        new Position(row + 1, col + 1),
+    ].filter(p => {
+        return p.col >= 0 && p.row >= 0 && p.col < cols && p.row < rows
+    })
+}
+
+function stepDelta(board: Board, changes: Map<string, Position>): Delta {
+    const nextChanges = new Map<string, Position>()
+    const newCells: boolean[][] = []
+    board.cells.forEach(row => {
+        newCells.push(row.slice())
+    })
+
+    changes.forEach(pos => {
+        const row = pos.row
+        const col = pos.col
+        const current = board.cells[row][col]
+        const newValue = stepCell(row, col, board)
+        if (current != newValue) {
+            newCells[row][col] = newValue
+            neighbouringPositions(pos, board).forEach(p => nextChanges.set(p.key(), p))
+        }
+    })
+
+    return {
+        board: {
+            cols: board.cols,
+            rows: board.rows,
+            cells: newCells
+        },
+        nextChanges
+    }
+}
+
 function stepCell(row: number, col: number, board: Board): boolean {
     const aliveNeighbours = countAliveNeighbours(row, col, board)
     const isAlive = board.cells[row][col]
@@ -68,5 +130,8 @@ function stepCell(row: number, col: number, board: Board): boolean {
 export {
     Board,
     randomBoard,
-    step
+    step,
+    Delta,
+    Position,
+    stepDelta,
 }

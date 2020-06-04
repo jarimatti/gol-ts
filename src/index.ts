@@ -1,23 +1,28 @@
-import { Board, randomBoard, step } from './gol/logic.js'
+import { Board, Delta, Position, randomBoard, step, stepDelta } from './gol/logic.js'
 import { render } from './gol/render.js'
 
 class Main {
     private canvas: HTMLCanvasElement
     private runButton: HTMLButtonElement
     private generationElement: HTMLElement
+    private deltaCheckbox: HTMLInputElement
+    private deltaEnabled: boolean = false
     private running: boolean = false
     private board: Board
     private generation = 0
     private timer: any
+    private changes: Map<string, Position> = new Map()
 
     constructor() {
         this.canvas = document.getElementById('canvas') as HTMLCanvasElement
         this.runButton = document.getElementById('pause') as HTMLButtonElement
         this.generationElement = document.getElementById('generation') as HTMLElement
+        this.deltaCheckbox = document.getElementById('delta') as HTMLInputElement
         this.board = randomBoard(this.canvas.height, this.canvas.width, 0)
 
         this.bindRun()
         this.bindNew()
+        this.bindDelta()
 
         this.newBoard()
 
@@ -35,6 +40,16 @@ class Main {
         }
     }
 
+    private bindDelta() {
+        this.deltaCheckbox.onchange = (ev) => {
+            const input = ev.target as HTMLInputElement
+            this.deltaEnabled = input.checked
+            if (this.deltaEnabled) {
+                this.markAllChanged()
+            }
+        }
+    }
+
     private newBoard() {
         this.generation = 0
 
@@ -48,9 +63,20 @@ class Main {
 
         this.canvas.width = width
         this.canvas.height = height
+        this.markAllChanged()
         this.board = randomBoard(height, width, p)
 
         render(this.canvas, this.board)
+    }
+
+    private markAllChanged() {
+        this.changes = new Map()
+        for (let row = 0; row < this.board.rows; row++) {
+            for (let col = 0; col < this.board.cols; col++) {
+                const p = new Position(row, col)
+                this.changes.set(p.key(), p)
+            }
+        }
     }
 
     private bindRun() {
@@ -80,15 +106,24 @@ class Main {
         if (this.running) {
             this.generation += 1
             const start = Date.now()
-            this.board = step(this.board)
+            if (this.deltaEnabled) {
+                const { board, nextChanges } = stepDelta(this.board, this.changes)
+                this.board = board
+                this.changes = nextChanges
+            } else {
+                this.board = step(this.board)
+            }
             const stepAt = Date.now()
             render(this.canvas, this.board)
             const renderAt = Date.now()
             this.generationElement.innerText = this.generation.toString()
-            console.log("Generation", this.generation, "durations (step/render/total)", stepAt - start, renderAt - stepAt, renderAt - start)
+            console.log(
+                "Generation", this.generation,
+                "delta enabled:", this.deltaEnabled,
+                ", durations (step/render/total)", stepAt - start, renderAt - stepAt, renderAt - start,
+                ", changes", this.changes.size)
         }
     }
-
 }
 
 new Main()
