@@ -8,7 +8,7 @@ function randomBoard(rows: number, cols: number, p: number): Board {
     const cells: boolean[][] = []
     for (let r = 0; r < rows; r++) {
         const row = []
-        for (let c = 0; c < rows; c++) {
+        for (let c = 0; c < cols; c++) {
             row.push(randomCell(p))
         }
         cells.push(row)
