@@ -1,5 +1,5 @@
-import { Board, Delta, Position, randomBoard, step, stepDelta } from './gol/logic.js'
-import { render } from './gol/render.js'
+import { Board, Delta, Position, randomBoard, step, stepDelta } from './gol/logic'
+import { render } from './gol/render'
 
 class Main {
     private canvas: HTMLCanvasElement

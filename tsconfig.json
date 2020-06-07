@@ -3,7 +3,6 @@
         "strict": true,
         "target": "ES2015",
         "module": "ES2015",
-        "outDir": "build",
         "removeComments": true,
         "sourceMap": true,
         "moduleResolution": "node",

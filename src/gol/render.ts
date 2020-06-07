@@ -1,4 +1,4 @@
-import { Board } from "./logic.js"
+import { Board } from "./logic"
 
 function render(canvas: HTMLCanvasElement, board: Board): void {
     const context = canvas.getContext("2d")!
