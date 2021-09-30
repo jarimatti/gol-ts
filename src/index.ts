@@ -1,4 +1,4 @@
-import { Board, Delta, Position, randomBoard, step, stepDelta } from './gol/logic'
+import { Board, Position, randomBoard, step, stepDelta } from './gol/logic'
 import { render } from './gol/render'
 
 class Main {
@@ -6,11 +6,11 @@ class Main {
     private runButton: HTMLButtonElement
     private generationElement: HTMLElement
     private deltaCheckbox: HTMLInputElement
-    private deltaEnabled: boolean = false
-    private running: boolean = false
+    private deltaEnabled = false
+    private running = false
     private board: Board
     private generation = 0
-    private timer: any
+    private timer: number | undefined = undefined
     private changes: Map<string, Position> = new Map()
 
     constructor() {

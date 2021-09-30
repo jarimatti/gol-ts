@@ -56,7 +56,7 @@ function step(board: Board): Board {
 class Position {
     constructor(readonly row: number, readonly col: number) {}
 
-    key() {
+    key(): string {
         return `${this.row}@${this.col}`
     }
 }
