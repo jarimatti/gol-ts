@@ -1,7 +1,6 @@
 import { Board } from "./logic"
 
 function render(canvas: HTMLCanvasElement, board: Board): void {
-    // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
     const context = canvas.getContext("2d")!
     const width = board.cols
     const height = board.rows
