@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup -c",
+    "build": "rollup --config",
     "eslint": "eslint src/ --ext .js,.ts",
     "local": "npx http-server build -a 127.0.0.1"
   },
@@ -14,12 +14,13 @@
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@rollup/plugin-typescript": "^8.2.5",
+    "@rollup/plugin-typescript": "^12.3.0",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.1",
-    "rollup": "^2.79.2",
-    "rollup-plugin-copy": "^3.4.0",
+    "rollup": "^4.53.1",
+    "rollup-plugin-copy": "^3.5.0",
     "ts-jest": "^29.4.5",
+    "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3"
   }
