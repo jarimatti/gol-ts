@@ -30,7 +30,7 @@ class Main {
     }
 
     private setTimer() {
-        this.timer = setInterval(() => this.step(), 25)
+        this.timer = window.setInterval(() => this.step(), 25)
     }
 
     private bindNew() {
@@ -88,7 +88,7 @@ class Main {
             if (this.running) {
                 this.setTimer()
             } else {
-                clearInterval(this.timer)
+                window.clearInterval(this.timer)
             }
             this.setRunButtonTitle()
         }
