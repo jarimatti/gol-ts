@@ -5,7 +5,7 @@
         "module": "ES2015",
         "removeComments": true,
         "sourceMap": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
     },
     "include": [
         "src/**/*"
