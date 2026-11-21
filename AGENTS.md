@@ -18,7 +18,7 @@ Use Node.js 26, as configured in `mise.toml`.
 
 - `npm ci`: install dependencies from the committed lockfile.
 - `npm run build`: compile TypeScript and bundle with Rollup, then copy static HTML into `build/`.
-- `npm run local`: serve `build/` on localhost using `npx http-server`; build first and rebuild after changes. The first invocation may download the server.
+- `npm run local`: serve `build/` at `http://127.0.0.1:8080` using the installed `http-server` development dependency; run `npm ci` first, build before serving, and rebuild after changes.
 - `npm run eslint`: run the type-aware TypeScript ESLint checks.
 - `npm test -- --runInBand`: run Jest serially.
 

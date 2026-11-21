@@ -7,7 +7,7 @@
     "test": "jest",
     "build": "rollup --config",
     "eslint": "eslint src/ --ext .js,.ts",
-    "local": "npx http-server build -a 127.0.0.1"
+    "local": "http-server build -a 127.0.0.1"
   },
   "author": "Jarimatti Valkonen <jarimatti@me.com>",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/jest": "^30.0.0",
     "eslint": "^10.15.0",
+    "http-server": "^14.1.1",
     "jest": "^30.5.2",
     "rollup": "^4.53.1",
     "rollup-plugin-copy": "^3.5.0",
