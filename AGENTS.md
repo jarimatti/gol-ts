@@ -18,9 +18,11 @@ Use Node.js 26, as configured in `mise.toml`.
 
 - `npm ci`: install dependencies from the committed lockfile.
 - `npm run build`: compile TypeScript and bundle with Rollup, then copy static HTML into `build/`.
-- `npm run local`: serve `build/` on localhost using `npx http-server`; build first and rebuild after changes. The first invocation may download the server.
+- `npm run local`: serve `build/` at `http://127.0.0.1:8080` using the installed `http-server` development dependency; run `npm ci` first, build before serving, and rebuild after changes.
 - `npm run eslint`: run the type-aware TypeScript ESLint checks.
-- `npm test -- --runInBand`: run Jest serially.
+- `npm test -- --runInBand`: run Jest unit tests serially; browser tests are excluded.
+- `npx playwright install --with-deps --only-shell chromium`: install the matching headless browser and system libraries after `npm ci` or a Playwright update.
+- `npm run test:e2e`: typecheck browser tests, build, start the local server, run Chromium smoke tests, and stop the server. Port 8080 must be free.
 
 ## Coding Style & Naming Conventions
 
@@ -30,7 +32,7 @@ TypeScript strict mode and type-aware ESLint rules are enabled. Preserve explici
 
 ## Testing Guidelines
 
-Jest uses the `ts-jest` preset and a Node environment. Name tests `*.test.ts` or `*.spec.ts`; these files are excluded from the application build. No tests or coverage thresholds currently exist, so Jest exits unsuccessfully until tests are added.
+Jest uses the `ts-jest` preset and a Node environment. Name tests `*.test.ts` or `*.spec.ts`; these files are excluded from the application build. No unit tests or coverage thresholds currently exist, so Jest exits unsuccessfully until unit tests are added. Browser smoke tests live in `e2e/` and run separately with Playwright.
 
 For simulation changes, test known patterns, boundary behavior, and agreement between full-board and delta stepping. For UI changes, build and check controls and rendering in a browser.
 
